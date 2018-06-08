@@ -21,35 +21,29 @@ oldy = player1y;
 var drag=false;
 var y;
 //--------------------------------------Function declarations
-context.fillStyle="orange";
+context.fillStyle="green";
 context.fillRect(0,0,width,height);
-setInterval(RenderScreen, 20);
-function RenderScreen()
+setInterval(RunGame, 20);
+function DrawCanvas()
     {
     context.fillStyle = "orange";
     context.fillRect(oldx, oldy, 20,30);
     context.fillStyle = "purple";
     context.fillRect(player1x, player1y, 20,30);
-    context.fillStyle = "green";
-    context.fillRect(0, height-10, width, 10);
     oldx= player1x;
     oldy= player1y;
-      if(!drag){
-        player1y += 1;
-      }
+  }
+function MovePlayer()
+  {
+      if(!drag){player1y += 1;}
       if(player1y > height - 10 - 30){
-        player1y = height - 10 - 30
-      }
+      player1y = height - 10 - 30;
     }
-function mouseDown(e)
-    {
-    drag=true;
-    }
-function mouseUp()
-    {
-    drag=false;
-        RenderScreen()
-    }
+    function mouseDown(e)
+    {drag=true;}
+    function mouseUp()
+    {drag=false;
+    RunGame();}
 function mouseMove(e)
     {
     if(drag)
@@ -58,15 +52,20 @@ function mouseMove(e)
       mouseY=e.clientY;
       player1x=mouseX;
       player1y=mouseY;
-      RenderScreen()
+      DrawCanvas();
       }
     }
+  }
+    function RunGame(){
+      MovePlayer();
+      DrawCanvas();
+
 //-------------------------------------Main Program
 canvas.addEventListener('mouseup',mouseUp, false);
 canvas.addEventListener('mousemove',mouseMove, false);
 canvas.addEventListener('mousedown',mouseDown, false);
-
-RenderScreen();
+RunGame();
+}
 </script>
 </body>
 </html>
